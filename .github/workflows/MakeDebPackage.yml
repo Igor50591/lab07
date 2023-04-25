@@ -27,3 +27,4 @@ jobs:
           prerelease: false
           files: solver_application/artifacts/*
         id: "automatic_releases"
+
