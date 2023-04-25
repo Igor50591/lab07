@@ -20,13 +20,13 @@ jobs:
       - name: Build Solver App with Debian Generator
         run: mkdir solver_application/build && cd solver_application/build && cmake -DCPACK_GENERATOR_DEB=ON .. && make package && make package_source && cd .. && mkdir artifacts && mv build/*.deb artifacts && mv build/*.zip artifacts && mv build/*.tar.gz artifacts
 
+      - name: Set release tag
+        run: echo "::set-output name=release_tag::${{ steps.create_release.outputs.tag_name }}"
+        id: "automatic_release_tag"
+
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
           files: solver_application/artifacts/*
         id: "automatic_releases"
-
-      - name: Set release tag
-        run: echo "::set-output name=release_tag::${{ steps.create_release.outputs.tag_name }}"
-        id: "automatic_release_tag"
