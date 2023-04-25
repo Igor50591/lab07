@@ -1,0 +1,26 @@
+name: Make Debian Package
+
+on:
+  push:
+     tags:
+       - "v*.*.*-debian"
+
+jobs:
+  release:
+    name: release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Building preparation
+        run:  apt install cmake g++ cpack clang
+
+      - name: Build Solver App with Debian Generator
+        run: mkdir solver_application/build && cd solver_application/build && cmake -DCPACK_GENERATOR_DEB=ON .. && make package && make package_source && cd .. && mkdir artifacts && mv build/*.deb artifacts && mv build/*.zip artifacts && mv build/*.tar.gz artifacts
+
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          files: solver_application/artifacts/*
+        id: "automatic_releases"
