@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Building preparation
-        run:  sudo apt install -y cmake g++ cpack clang
+        run:  sudo apt update && sudo apt install -y cmake g++ cpack clang
 
       - name: Build Solver App with Debian Generator
         run: mkdir solver_application/build && cd solver_application/build && cmake -DCPACK_GENERATOR_DEB=ON .. && make package && make package_source && cd .. && mkdir artifacts && mv build/*.deb artifacts && mv build/*.zip artifacts && mv build/*.tar.gz artifacts
