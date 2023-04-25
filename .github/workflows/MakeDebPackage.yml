@@ -3,8 +3,9 @@ name: Make Debian Package
 
 on:
   push:
-    branches: [ "main" ]
-     tags:
+    branches:
+      - main
+    tags:
        - 'v*.*.*-debian'
 
 jobs:
