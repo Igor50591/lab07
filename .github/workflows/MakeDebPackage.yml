@@ -1,9 +1,10 @@
----
 name: Make Debian Package
 
 on:
   push:
-     tags:
+    branches:
+      - main
+    tags:
        - "v*.*.*-debian"
 
 jobs:
@@ -25,3 +26,7 @@ jobs:
           prerelease: false
           files: solver_application/artifacts/*
         id: "automatic_releases"
+
+      - name: Set release tag
+        run: echo "::set-output name=release_tag::${{ steps.create_release.outputs.tag_name }}"
+        id: "automatic_release_tag"
