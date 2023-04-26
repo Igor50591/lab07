@@ -13,10 +13,10 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Building preparation
-        run:  sudo apt update && sudo apt install -y cmake && sudo apt install -y g++ && sudo apt install -y clang
+        run:  sudo apt update && sudo apt install -y cmake && sudo apt install -y g++
 
-      - name: Build Solver App with RPM Generator
-        run: mkdir solver_application/build && cd solver_application/build && cmake -DCPACK_GENERATOR_DMG=ON .. && make package && make package_source && cd .. && mkdir artifacts && mv build/*.dmg artifacts && mv build/*.zip artifacts && mv build/*.tar.gz artifacts
+      - name: Build Solver App with Drag and Drop Generator
+        run: cmake --version &&  mkdir solver_application/build && cd solver_application/build && cmake -DCPACK_GENERATOR_DMG=ON .. && make package && make package_source && cd .. && mkdir artifacts && mv build/*.dmg artifacts && mv build/*.zip artifacts && mv build/*.tar.gz artifacts
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
