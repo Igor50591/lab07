@@ -24,3 +24,6 @@ jobs:
 
     - name: build solver_application
       run: mkdir solver_application/build && cd solver_application/build && cmake .. && make
+
+    - name: Docker
+      run: sudo apt update && sudo apt install docker.io && docker build -t solver . && sudo docker run -it solver
